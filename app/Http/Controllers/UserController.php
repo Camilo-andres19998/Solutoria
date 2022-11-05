@@ -10,6 +10,8 @@ use App\Http\Response\GeneralResponse;
 
 use Symfony\Component\HttpFoundation\Response;
 
+
+
 class UserController extends Controller
 {
 
@@ -23,17 +25,31 @@ class UserController extends Controller
         $this->middleware('jwt.auth');
     }
 
-   /**
-    * @OA\Post(
-    *     path="/users",
-    *     @OA\Response(response="200", description="Display a credential User."),
-    *     @OA\Response(response="201", description="Successful operation"),
-    *     @OA\Response(response="400", description="Bad Request"),
-    *     @OA\Response(response="401", description="Unauthenticated"),
-    *     @OA\Response(response="403", description="Forbidden")
-    * )
-    */
+    /**
+     * @OA\Get(
+     *      path="/users",
+      *      summary="Get list User",
+     *      description="Returns User data",
 
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     public function index()
     {
         return (new GeneralResponse)->default_json(
@@ -46,13 +62,37 @@ class UserController extends Controller
 
 
 
-   /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
+/**
+     * @OA\Post(
+     *      path="/users",
+      *      summary="Create User",
+     *      description="Returns User data",
+
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *  *      @OA\Response(
+     *          response=202,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     public function store(Request $request)
     {
         $request_input = $request->all();
@@ -72,6 +112,11 @@ class UserController extends Controller
             $code= Response::HTTP_ACCEPTED
         );
     }
+
+
+
+
+
  /**
      * @OA\Get(
      *     path="/users/{id}",
@@ -123,12 +168,48 @@ class UserController extends Controller
 
     }
 
+    
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *      path="/Users/{id}",
+     *      summary="Update existing User",
+     *      description="Returns updated User data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
      */
     public function update(Request $request, $id)
     {

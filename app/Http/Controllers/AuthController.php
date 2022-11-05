@@ -125,7 +125,7 @@ class AuthController extends Controller
      *          )
      *     ),
      *      @OA\Parameter(
-     *          name="username",
+     *          name="userName",
      *          description="Username Field",
      *          required=true,
      *          in="query",
@@ -133,24 +133,7 @@ class AuthController extends Controller
      *              type="string"
      *          )
      *     ),
-     *      @OA\Parameter(
-     *          name="firstname",
-     *          description="First Name",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *      @OA\Parameter(
-     *          name="lastname",
-     *          description="Last Name",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
+     *     
      *     @OA\Parameter(
      *          name="password",
      *          description="Password",
