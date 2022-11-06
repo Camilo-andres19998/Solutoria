@@ -151,11 +151,20 @@ return [
         /*
          * API security definitions. Will be generated into documentation file.
         */
+         /*
+         * API security definitions. Will be generated into documentation file.
+        */
         'securityDefinitions' => [
             'securitySchemes' => [
-                /*
-                 * Examples of Security schemes
-                */
+
+                'bearer_token' => [ // Unique name of security
+                    'type' => 'apiKey', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
+                    'description' => 'Sanctum security laravel',
+                    'name' => 'Authorization', // The name of the header or query parameter to be used.
+                    'in' => 'header', // The location of the API key. Valid values are "query" or "header".
+                ],
+
+
                 /*
                 'api_key_security_example' => [ // Unique name of security
                     'type' => 'apiKey', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
@@ -220,7 +229,7 @@ return [
          * Set this to `true` in development mode so that docs would be regenerated on each request
          * Set this to `false` to disable swagger generation on production
         */
-        'generate_always' => env('L5_SWAGGER_GENERATE_ALWAYS', false),
+        'generate_always' => env('L5_SWAGGER_GENERATE_ALWAYS', true),
 
         /*
          * Set this to `true` to generate a copy of documentation in yaml format

@@ -1,417 +1,107 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "My First API",
-        "version": "0.1"
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "darius@matulionis.lt"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
     },
     "servers": [
         {
-            "url": "http://swagger.local"
+            "url": "http://127.0.0.1:8000",
+            "description": "SwaggerHUB API Mocking"
         }
     ],
     "paths": {
-        "/login": {
+        "/api/register": {
             "post": {
-                "operationId": "2dd578ff7aba2721293dac66833b27d1",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email Field",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Display a credential User."
-                    },
-                    "201": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/logout": {
-            "post": {
-                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
-                "responses": {
-                    "200": {
-                        "description": "Display a credential User."
-                    },
-                    "201": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/refresh": {
-            "post": {
-                "operationId": "0c3ea3c61aed881016646810460499e9",
-                "responses": {
-                    "200": {
-                        "description": "Display a credential User."
-                    },
-                    "201": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/register": {
-            "post": {
-                "operationId": "0903f2e0df1a8857bee538fc055417f0",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email Field",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "userName",
-                        "in": "query",
-                        "description": "Username Field",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password2",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Create User credentials",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "201": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/users": {
-            "get": {
-                "summary": "Get list User",
-                "description": "Returns User data",
-                "operationId": "7e2f5799553ec93c9c43e2a58490d447",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            },
-            "post": {
-                "summary": "Create User",
-                "description": "Returns User data",
-                "operationId": "a1fce870c566eb5fc0cf3178ec5d2fed",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "202": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "get": {
                 "tags": [
-                    "User"
+                    "Auth"
                 ],
-                "summary": "Get all products for REST API",
-                "description": "Multiple status values can be provided with comma separated string",
-                "operationId": "index",
-                "parameters": [
-                    {
-                        "name": "perPage",
-                        "in": "query",
-                        "description": "Per page count",
-                        "required": false,
-                        "explode": true,
-                        "schema": {
-                            "type": "integer",
-                            "default": "10"
+                "summary": "Registrate",
+                "operationId": "Register",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Enter your name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Enter your Email",
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "description": "Enter your password",
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "400": {
-                        "description": "Invalid status value"
+                    "405": {
+                        "description": "Invalid input"
                     }
                 }
             }
         },
-        "/Users/{id}": {
-            "put": {
-                "summary": "Update existing User",
-                "description": "Returns updated User data",
-                "operationId": "2653d8527eb74964bb05ca4df3f8c19a",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
                 ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
+                "summary": "Authentificate",
+                "operationId": "Login",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Enter your email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Enter password",
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
                             }
-                        }
-                    },
-                    "202": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "summary": "Delete existing User",
-                "description": "Deletes a record and returns no content",
-                "operationId": "41767803dbc812b968e1014d2f6b5f76",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
                         }
                     }
-                ],
+                },
                 "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
+                    "405": {
+                        "description": "Invalid input"
                     }
                 }
             }
         }
     },
     "components": {
-        "schemas": {
-            "User": {
-                "title": "User",
-                "description": "User model",
-                "properties": {
-                    "id": {
-                        "title": "ID",
-                        "description": "ID",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 1
-                    },
-                    "userName": {
-                        "title": "Name",
-                        "description": "Name of the new User",
-                        "type": "string",
-                        "example": "A nice username"
-                    },
-                    "email": {
-                        "title": "Email",
-                        "description": "Email's id of the new project",
-                        "type": "string",
-                        "format": "string",
-                        "example": "user@gmail.com"
-                    },
-                    "created_at": {
-                        "title": "first_name",
-                        "description": "first Name author's user model",
-                        "type": "string",
-                        "example": "This is new user first name"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "deleted_at": {
-                        "title": "Deleted at",
-                        "description": "Deleted at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    }
-                },
-                "type": "object",
-                "xml": {
-                    "name": "User"
-                }
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Sanctum security laravel",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

@@ -14,23 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-*/
-
-Route::group([
-    'middleware' => 'api',
-    'namespace' => 'App\Http\Controllers'
-], function($router){
-    Route::post('login', ['as'=> 'login', 'uses'=> 'AuthController@login']);
-    Route::post('register', ['as'=> 'register', 'uses'=> 'AuthController@register']);
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-
-    Route::get('users', 'UserController@index');
-    Route::post('users/create', 'UserController@create');
-    Route::get('users/{$id}', 'UserController@show');
-    Route::put('users/{$id}', 'UserController@update');
-    Route::delete('users/{$id}', 'UserController@destroy');
+Route::post('/register', [\App\Http\Controllers\AuthController::class, 'Register']);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'Login']);
+Route::group(['middleware'=> ['auth:sanctum']], function(){
+    //Route::get('/products', [\App\Http\Controllers\ApiController::class, 'Products']);
+    //Route::post('/storeproducts', [\App\Http\Controllers\ApiController::class, 'storeProducts']);
 });

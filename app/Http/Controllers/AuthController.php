@@ -2,199 +2,122 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use App\Http\Controllers\UserController;
-
-use App\Http\Response\GeneralResponse;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
-
-
-
-
-
-
 {
+
+
     /**
-     * Create a new AuthController instance.
+     * @OA\Post(
+     *     path="/api/register",
+     *     tags={"Auth"},
+     *     summary="Registrate",
+     *     operationId="Register",
      *
-     * @return void
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="name",
+     *                     description="Enter your name",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="Enter your Email",
+     *                     type="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Enter your password",
+     *                     type="password"
+     *                
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
      */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
-
-   /**
-    * @OA\Post(
-    *     path="/login",
-    *     @OA\Parameter(
-     *          name="email",
-     *          description="Email Field",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *     @OA\Parameter(
-     *          name="password",
-     *          description="Password",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-    *     @OA\Response(response="200", description="Display a credential User."),
-    *     @OA\Response(response="201", description="Successful operation"),
-    *     @OA\Response(response="400", description="Bad Request"),
-    *     @OA\Response(response="401", description="Unauthenticated"),
-    *     @OA\Response(response="403", description="Forbidden")
-    * )
-    */
-    public function login()
-    {
-        $credentials = request(['email', 'password']);
-
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-
-        return $this->respondWithToken($token);
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
-    }
-
-    /**
-    * @OA\Post(
-    *     path="/logout",
-    *     @OA\Response(response="200", description="Display a credential User."),
-    *     @OA\Response(response="201", description="Successful operation"),
-    *     @OA\Response(response="400", description="Bad Request"),
-    *     @OA\Response(response="401", description="Unauthenticated"),
-    *     @OA\Response(response="403", description="Forbidden")
-    * )
-    */
-    public function logout()
-    {
-        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    /**
-    * @OA\Post(
-    *     path="/refresh",
-    *     @OA\Response(response="200", description="Display a credential User."),
-    *     @OA\Response(response="201", description="Successful operation"),
-    *     @OA\Response(response="400", description="Bad Request"),
-    *     @OA\Response(response="401", description="Unauthenticated"),
-    *     @OA\Response(response="403", description="Forbidden")
-    * )
-    */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-
-      /**
-    * @OA\Post(
-    *     path="/register",
-    *     @OA\Parameter(
-     *          name="email",
-     *          description="Email Field",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *      @OA\Parameter(
-     *          name="userName",
-     *          description="Username Field",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *     
-     *     @OA\Parameter(
-     *          name="password",
-     *          description="Password",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *  @OA\Parameter(
-     *          name="password2",
-     *          description="Password",
-     *          required=true,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *    @OA\Response(response="200", description="Create User credentials",
-     *     @OA\JsonContent(ref="#/components/schemas/User")),
-    *     @OA\Response(response="201", description="Successful operation",@OA\JsonContent(ref="#/components/schemas/User")),
-    *     @OA\Response(response="400", description="Bad Request"),
-    *     @OA\Response(response="401", description="Unauthenticated"),
-    *     @OA\Response(response="403", description="Forbidden")
-
-    * )
-    */
-    public function register(Request $request)
-    {
-        $request_input = $request->input();
-        if(array_key_exists('password',  $request_input) && array_key_exists('password2',  $request_input)){
-            if ($request_input['password'] != $request_input['password2']){
-                return GeneralResponse::default_json([
-                    "success" => false,
-                    "message" => "password and confirm password must be same",
-                    "code" => 500
-                ]);
-            }
-        }
-
-        $userController = new UserController;
-        return $userController->store($request);
-    }
 
 
 
+    public function Register(Request $request){
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access' => $token,
-            'refresh' => auth()->refresh(),
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+
+        $fields = $request->validate([
+            'name'=>'required|string',
+            'email'=>'required|string|unique:users,email',
+            'password'=>'required|string|confirmed',
         ]);
+        return response()->json('camilo');
+        $user = new User();
+        $user->name = $fields['name'];
+        $user->email = $fields['email'];
+        $user->password = bcrypt($fields['password']);
+        $user->save();
+        $token = $user->createToken('myapptoken')->plainTextToken;
+        $response = [
+            'data'=>$user,
+            'token'=>$token
+        ];
+        return response()->json($response);
+    }
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"Auth"},
+     *     summary="Authentificate",
+     *     operationId="Login",
+     *
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="Enter your email",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Enter password",
+     *                     type="password"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function Login(Request $request){
+        $fields = $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if(!$user||!Hash::check($fields['password'], $user->password)){
+            return response()->json('password or login is incorrect');
+        }
+        $token = $user->createToken('myapptoken')->plainTextToken;
+        $response = [
+            'data'=>$user,
+            'token'=>$token
+        ];
+        return response()->json($response);
     }
 }

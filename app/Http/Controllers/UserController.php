@@ -25,31 +25,6 @@ class UserController extends Controller
         $this->middleware('jwt.auth');
     }
 
-    /**
-     * @OA\Get(
-     *      path="/users",
-      *      summary="Get list User",
-     *      description="Returns User data",
-
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     * )
-     */
     public function index()
     {
         return (new GeneralResponse)->default_json(
@@ -63,36 +38,7 @@ class UserController extends Controller
 
 
 
-/**
-     * @OA\Post(
-     *      path="/users",
-      *      summary="Create User",
-     *      description="Returns User data",
 
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
-     *       ),
-     *  *      @OA\Response(
-     *          response=202,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     * )
-     */
     public function store(Request $request)
     {
         $request_input = $request->all();
@@ -117,35 +63,6 @@ class UserController extends Controller
 
 
 
- /**
-     * @OA\Get(
-     *     path="/users/{id}",
-     *     tags={"User"},
-     *     summary="Get all products for REST API",
-     *     description="Multiple status values can be provided with comma separated string",
-     *     operationId="index",
-     *     @OA\Parameter(
-     *         name="perPage",
-     *         in="query",
-     *         description="Per page count",
-     *         required=false,
-     *         explode=true,
-     *         @OA\Schema(
-     *             default="10",
-     *             type="integer",
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="successful operation",
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Invalid status value"
-     *     )
-     * )
-     */
-
 
     public function show($id)
     {
@@ -168,49 +85,8 @@ class UserController extends Controller
 
     }
 
-    
-    /**
-     * @OA\Put(
-     *      path="/Users/{id}",
-     *      summary="Update existing User",
-     *      description="Returns updated User data",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="User id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
-     *      ),
-     *      @OA\Response(
-     *          response=202,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     */
+
+
     public function update(Request $request, $id)
     {
         $user = User::find($id);
@@ -225,44 +101,7 @@ class UserController extends Controller
     }
 
 
-    /**
-     * @OA\Delete(
-     *      path="/Users/{id}",
-     *      summary="Delete existing User",
-     *      description="Deletes a record and returns no content",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="User id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent({})
-     *       ),
-     *      @OA\Response(
-     *          response=204,
-     *          description="Successful operation",
-     *          @OA\JsonContent({})
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     */
+
     public function destroy($id)
     {
         $user = User::find($id);
